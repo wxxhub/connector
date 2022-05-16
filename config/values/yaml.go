@@ -1,54 +1,91 @@
 package values
 
-import "gopkg.in/yaml.v2"
+import "github.com/ghodss/yaml"
 
-type Yaml struct {
-	content []byte
-	paths   []string
+type YamlValues struct {
+	JsonValues
 }
 
-func newYamlValues(content []byte) *Yaml {
-	return &Yaml{content: content}
+//type YamlValue struct {
+//	content []byte
+//	paths   []string
+//}
+
+func newYamlValues(content []byte) (Values, error) {
+	jsonContent, err := yaml.YAMLToJSON(content)
+	if err != nil {
+		return nil, err
+	}
+	return newJsonValues(jsonContent)
 }
 
-func (y *Yaml) Bool(def bool) bool {
-	return def
+/*
+// YamlValues
+
+func (y *YamlValues) Bytes() []byte {
+	return y.content
 }
 
-func (y *Yaml) Int(def int) int {
-	return def
-}
-
-func (y *Yaml) Float64(def float64) float64 {
-	return def
-}
-
-func (y *Yaml) Bytes(def []byte) []byte {
-	return def
-}
-
-func (y *Yaml) String(def string) string {
-	return def
-}
-
-func (y *Yaml) StringSlice(def []string) []string {
-	return def
-}
-
-func (y *Yaml) Map() map[string]interface{} {
-	m := make(map[string]interface{})
-	yaml.Unmarshal(y.content, m)
-	return m
-}
-
-func (y *Yaml) StringMap() map[string]string {
+func (y *YamlValues) Get(path ...string) Value {
 	return nil
 }
 
-func (y *Yaml) Get(path ...string) Values {
-	return y
+func (y *YamlValues) Set(val interface{}, path ...string) {
+
 }
 
-func (y *Yaml) Scan(v interface{}) error {
+func (y *YamlValues) Del(path ...string) {
+
+}
+
+func (y *YamlValues) Map() map[string]interface{} {
+
 	return nil
 }
+
+func (y *YamlValues) Scan(v interface{}) error {
+
+	return nil
+}
+
+// YamlValue
+
+func (y *YamlValue) Bool(def bool) bool {
+	return def
+}
+
+func (y *YamlValue) Int(def int) int {
+	return def
+}
+
+func (y *YamlValue) Float64(def float64) float64 {
+	return def
+}
+
+func (y *YamlValue) String(def string) string {
+	return def
+}
+
+func (y *YamlValue) Bytes() []byte {
+	return nil
+}
+
+func (y *YamlValue) StringSlice(def []string) []string {
+	//return
+	return nil
+}
+
+func (y *YamlValue) StringMap(def map[string]string) map[string]string {
+	return nil
+}
+
+func (y *YamlValue) Duration(def time.Duration) time.Duration {
+	return def
+}
+
+func (y *YamlValue) Scan(v interface{}) error {
+
+	return nil
+}
+
+*/
