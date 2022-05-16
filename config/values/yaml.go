@@ -2,8 +2,8 @@ package values
 
 import "github.com/ghodss/yaml"
 
-type YamlValues struct {
-	JsonValues
+type yamlValues struct {
+	jsonValues
 }
 
 //type YamlValue struct {

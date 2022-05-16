@@ -7,24 +7,24 @@ import (
 
 // Values is returned by the reader
 type Values interface {
-	Bytes() []byte
+	Bytes() ([]byte, error)
 	Get(path ...string) Value
 	Set(val interface{}, path ...string)
 	Del(path ...string)
-	Map() map[string]interface{}
+	Map() (map[string]interface{}, error)
 	Scan(v interface{}) error
 }
 
 // Value represents a value of any type
 type Value interface {
-	Bool(def bool) bool
-	Int(def int) int
-	Float64(def float64) float64
-	Bytes() []byte
-	String(def string) string
-	StringSlice(def []string) []string
-	StringMap(def map[string]string) map[string]string
-	Duration(def time.Duration) time.Duration
+	Bool(def bool) (bool, error)
+	Int(def int) (int, error)
+	Float64(def float64) (float64, error)
+	Bytes() ([]byte, error)
+	String(def string) (string, error)
+	StringSlice(def []string) ([]string, error)
+	StringMap(def map[string]string) (map[string]string, error)
+	Duration(def time.Duration) (time.Duration, error)
 	Scan(val interface{}) error
 }
 
