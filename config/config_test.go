@@ -10,8 +10,8 @@ import (
 var yamlContent []byte
 
 type TestRedisConfig struct {
-	Addr    string
-	TimeOut string
+	Addr    string `json:"addr"`
+	TimeOut int    `json:"time_out"`
 }
 
 func TestLocalConfig(t *testing.T) {
@@ -21,8 +21,11 @@ func TestLocalConfig(t *testing.T) {
 	testRedisconfig := new(TestRedisConfig)
 	if err == nil {
 		log.Println("config:", config)
-		log.Println("config result:", config.Map())
+		m, err := config.Map()
+		log.Println("config result m:", m)
+		log.Println("config result err:", err)
 		log.Println("Scan result:", config.Scan(testRedisconfig))
+		log.Println("Scan result:", config.Get("redis").Scan(testRedisconfig))
 		log.Println("testRedisconfig result:", testRedisconfig)
 	} else {
 		log.Println("err: ", err)

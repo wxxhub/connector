@@ -1,10 +1,14 @@
 package config
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/wxxhub/middleware/config/values"
+)
 
 type Config interface {
-	Map() map[string]interface{}
+	Map() (map[string]interface{}, error)
 	Scan(v interface{}) error
+	Get(path ...string) values.Value
 }
 
 type Watcher interface {

@@ -139,7 +139,7 @@ func (j *jsonValue) Bytes() ([]byte, error) {
 		// try return marshalled
 		b, err = j.Json.MarshalJSON()
 		if err != nil {
-			return []byte{}, error()
+			return []byte{}, err
 		}
 		return b, nil
 	}

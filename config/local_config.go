@@ -39,7 +39,7 @@ func newLocalConfig(opts ...Option) (Config, Watcher, error) {
 	return nil, nil, fmt.Errorf("new local config failed")
 }
 
-func (l *localConfig) Map() map[string]interface{} {
+func (l *localConfig) Map() (map[string]interface{}, error) {
 	l.RLock()
 	defer l.RUnlock()
 	return l.vales.Map()
@@ -49,4 +49,10 @@ func (l *localConfig) Scan(v interface{}) error {
 	l.RLock()
 	defer l.RUnlock()
 	return l.vales.Scan(v)
+}
+
+func (l *localConfig) Get(path ...string) values.Value {
+	l.RLock()
+	defer l.RUnlock()
+	return l.vales.Get(path...)
 }
